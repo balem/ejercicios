@@ -327,6 +327,7 @@ public class FrmFuncionario extends JFrame {
 		modelo.addColumn("Departamento");
 		modelo.addColumn("Teléfono");
 		modelo.addColumn("Activo");
+		
 	}//fin de configGrilla
 	
 	//método para cargar la grilla
@@ -334,7 +335,7 @@ public class FrmFuncionario extends JFrame {
 		String sql = "SELECT legajos, fecha, titular, departamento, " +
 				"telefono, activo FROM funcionarios";
 		//Esto es para el filtro
-		if(txtFiltro.getText().length() >0){
+		if(txtFiltro.getText().length() > 0){
 			sql = sql+" where titular like '%"+txtFiltro.getText().toString()+"%'";
 		}
 		System.out.println(sql);	
