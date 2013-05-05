@@ -81,7 +81,7 @@ public class FrmFuncionario extends JFrame {
 	private JLabel lblActivo = new JLabel();
 	private opAbm operacion;
 	private JCalendarCombo cboCalFecha = new JCalendarCombo();
-
+	private int banderaDatos = 0;
 	
 	
 	private enum banderaBoton{
@@ -316,8 +316,15 @@ public class FrmFuncionario extends JFrame {
 		accionAbm(btnGuardar);
 		accionAbm(btnBorrar);
 		
-		
 	}//fin de contructor
+	
+	private void resVerdatos(){
+		banderaDatos = 1;
+		String sql = "SELECT legajos, fecha, titular, departamento, telefono, " +
+				"activo FROM funcionarios";
+		
+			res = manDB.recorreDatos(sql);
+	}
 
 	//metodo para configurar la grilla
 	private void configGrilla(){
@@ -391,31 +398,25 @@ public class FrmFuncionario extends JFrame {
 	
 
 	private void verTexto(banderaBoton accion){
-		String sql = "SELECT legajos, fecha, titular, departamento, telefono, " +
-				"activo FROM funcionarios";
+		if(banderaDatos == 0){
+			resVerdatos();
+		}
 		try {
-			res = manDB.recorreDatos(sql);
+			
 			switch (accion) {
 			case PRIMERO:
-				//res.first();
-				//table.changeSelection(0, 1, false, false);
+				res.first();
+				table.changeSelection(0, 1, false, false);
 			break;
 			case ANTERIOR:
-				//res.previous();
-				if(table.getSelectedRow() !=0){
-					sql = sql+" where legajos = "+modelo.getValueAt(table.getSelectedRow() -1, 0);
-					res = manDB.recorreDatos(sql);
-					res.next();
-					table.changeSelection(table.getSelectedRow() -1, 1, false, false);
-				}
+				res.previous();
+				table.changeSelection(table.getSelectedRow() -1, 1, false, false);
+				
 			break;
 			case SIGUIENTE:				
-				if(table.getSelectedRow() < table.getRowCount() -1){
-					sql = sql+" where legajos = "+modelo.getValueAt(table.getSelectedRow() +1, 0);
-					res = manDB.recorreDatos(sql);
-					res.next();
-					table.changeSelection(table.getSelectedRow() +1, 1, false, false);						
-				}
+				res.next();
+				table.changeSelection(table.getSelectedRow() +1, 1, false, false);						
+				
 			break;
 			case ULTIMO:
 				res.last();

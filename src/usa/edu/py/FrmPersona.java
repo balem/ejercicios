@@ -178,7 +178,6 @@ public class FrmPersona extends JFrame {
 		res = manDB.getQueryResult(sql);
 		while (res.next()) {
 			ArrayList<Object> newRow = new ArrayList<Object>();
-			//persona = new Persona(res.getString(1),res.getString(2),res.getString(3),res.getString(4));
 			newRow.add(res.getString(1));
 			newRow.add(res.getString(2));
 			newRow.add(res.getString(3));

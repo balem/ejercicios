@@ -16,7 +16,7 @@ import java.util.Vector;
 
 public class ManejadorBD {
 
-    private static Connection con = null;
+    public static Connection con = null;
     private static ResultSet rs = null;
     private static Statement stm  = null;
     private static PreparedStatement pstm = null;
@@ -117,4 +117,6 @@ public class ManejadorBD {
 			System.out.println("Desde el manejador " + filaActual);
 			return filaActual;			
 		}
+		
+		
 }
